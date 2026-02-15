@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, KC_DEL, KC_DEL, _______, _______, _______, _______, _______
 ),
 [3] = LAYOUT_ortho_5x12(
-  _______, _______, _______, _______,TG(1),_______, _______, _______, _______, _______, _______, KC_EQL,
+  QK_BOOT, QK_RBT, _______, _______,TG(1),_______, _______, _______, _______, _______, _______, KC_EQL,
   _______, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, _______, _______, _______,   KC_UP, _______, _______, _______,
   _______, KC_PGUP, KC_HOME,  KC_END, KC_PGDN, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
   _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, LCA(KC_DEL), C(KC_INS), RSFT(KC_INS), _______, _______, _______,
@@ -48,3 +48,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 };
+
+void keyboard_pre_init_user() {
+    writePin(LED1, true);
+    writePin(LED2, true);
+}
+
+void keyboard_post_init_user() {
+    writePin(LED1, false);
+    writePin(LED2, false);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    writePin(LED1, record->event.pressed);
+
+    return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(LED2, state);
+
+    return state;
+}
