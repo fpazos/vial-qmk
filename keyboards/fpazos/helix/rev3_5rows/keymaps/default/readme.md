@@ -1,5 +1,9 @@
 # The default keymap for Helix rev3 5rows
 
+qmk compile -kb fpazos/helix/rev3_5rows -km def
+
+
+
 ### Qwerty Layer (Base)
 ```
 ,-----------------------------------------.             ,-----------------------------------------.
